@@ -12,17 +12,21 @@ public class DVD extends Item
 	public DVD(String title, String uniqueID, int duration) 
 	{
 		super(title, uniqueID);
+		if(duration < 1) 
+		{
+			throw new IllegalArgumentException("Duration of DVD must be longer than 0 minute!");
+		}
 		this.duration = duration;
 	}
 
 	@Override
-	public void borrowItem() 
+	protected void borrowItem() 
 	{
 		isBorrowed = true;
 	}
 
 	@Override
-	public void returnItem() 
+	protected void returnItem() 
 	{
 		isBorrowed = false;
 	}

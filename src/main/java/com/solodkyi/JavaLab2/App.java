@@ -64,8 +64,7 @@ public class App
 //            Item [uniqueID=3, title=Title, isBorrowed=false, author= Author]
 //            Item [uniqueID=4, title=DVD, isBorrowed=false, duration= 15]
 //            Patron [name= Name, ID= 1, borrowedItems: []]
-//            Patron [name= Name, ID= 2, borrowedItems: []]
-            
+//            Patron [name= Name, ID= 2, borrowedItems: []]                    
         }
         catch(Exception e)
         {

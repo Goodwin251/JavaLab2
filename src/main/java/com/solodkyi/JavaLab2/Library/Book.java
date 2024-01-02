@@ -13,7 +13,6 @@ public class Book extends Item
 		super(title, uniqueID);
 		this.author = author;
 	}
-
 	@Override
 	protected void borrowItem() 
 	{

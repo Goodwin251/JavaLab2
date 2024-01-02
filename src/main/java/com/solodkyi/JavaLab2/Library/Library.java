@@ -16,18 +16,19 @@ public class Library implements IManageable
 	@Override
 	public void add(Item item) 
 	{
+		if(item.getIsBorrowed()) 
+		{
+			throw new IllegalArgumentException("You can't add borrowed item in Library!"); 
+		}
+		
 		for(Item existItem : items) 
 		{
 			if(existItem.getUniqueID().equals(item.getUniqueID())) 
 			{
 				throw new IllegalArgumentException("ID of item already exist in Library!"); 
 			}
-			if(existItem.getIsBorrowed()) 
-			{
-				throw new IllegalArgumentException("You can't add borrowed item in Library!"); 
-			}
 		}
-		
+
 		items.add(item);
 	}
 
@@ -80,6 +81,11 @@ public class Library implements IManageable
 		return borrowedItems;
 	}
 	
+	public ArrayList<Patron> getPatronList() 
+	{
+		return patrons;
+	}
+	
 	public void printLibrary() 
 	{
 		System.out.println();
@@ -120,7 +126,6 @@ public class Library implements IManageable
 		}
 		
 		throw new IllegalArgumentException("This Patron doesn't exist in register of Library!");
-
 	}
 	
 	private int checkLendingItem(Item lendItem) 
@@ -152,10 +157,15 @@ public class Library implements IManageable
 	{
 		if(!lendItem.getIsBorrowed()) 
 		{
-			throw new IllegalArgumentException("This Item is already returned!");
+			throw new IllegalArgumentException("This Item is already avaible!");
 		}
 		int patronIndex = checkLendingPatron(lendPatron);
 		int itemIndex = checkLendingItem(lendItem);
+		if(!lendPatron.getBorrowedItems().contains(lendItem)) 
+		{
+			throw new IllegalArgumentException("This Patron doesn't have this Item!");
+		}
+		
 		
 		items.get(itemIndex).returnItem();
 		patrons.get(patronIndex).returned(items.get(itemIndex));		
